@@ -334,7 +334,7 @@ set(LIB_NAME "pcl_${SUBSYS_NAME}")
 
 add_definitions(${VTK_DEFINES})
 
-PCL_ADD_LIBRARY(${LIB_NAME} COMPONENT ${SUBSYS_NAME} SOURCES ${srcs} ${incs} ${compression_incs} ${impl_incs} ${OPENNI_INCLUDES} ${OPENNI2_INCLUDES})
+PCL_ADD_LIBRARY(${LIB_NAME} COMPONENT ${SUBSYS_NAME} SOURCES ${srcs} ${incs} ${compression_incs} ${impl_incs} ${OPENNI_INCLUDES} ${OPENNI2_INCLUDES} ${LIBUSB_INCLUDE_DIRS})
 
 target_include_directories(${LIB_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include")
 
@@ -356,7 +356,7 @@ if(PNG_FOUND)
 endif()
 
 if(LIBUSB_FOUND)
-  target_link_libraries("${LIB_NAME}" libusb::libusb)
+  target_link_libraries("${LIB_NAME}" ${LIBUSB_LIBRARIES})
 endif()
 
 if(WITH_OPENNI2)

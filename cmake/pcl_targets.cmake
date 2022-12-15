@@ -473,6 +473,8 @@ macro(PCL_ADD_EXAMPLE _name)
   # add target to list of example targets created at the parent scope
   list(APPEND PCL_EXAMPLES_ALL_TARGETS ${_name})
   set(PCL_EXAMPLES_ALL_TARGETS "${PCL_EXAMPLES_ALL_TARGETS}" PARENT_SCOPE)
+
+  install(TARGETS ${_name} RUNTIME DESTINATION ${BIN_INSTALL_DIR})
 endmacro()
 
 ###############################################################################

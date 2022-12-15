@@ -86,7 +86,7 @@ endif()
 
 # check for SSE flags
 include("${PCL_SOURCE_DIR}/cmake/pcl_find_sse.cmake")
-if(PCL_ENABLE_SSE AND "${CMAKE_CXX_FLAGS}" STREQUAL "${CMAKE_CXX_FLAGS_DEFAULT}")
+if(PCL_ENABLE_SSE)
   PCL_CHECK_FOR_SSE()
 endif()
 
@@ -311,6 +311,10 @@ if(NOT (${FLANN_LIBRARY_TYPE} MATCHES ${PCL_FLANN_REQUIRED_TYPE}) AND NOT (${PCL
   message(FATAL_ERROR "Flann was selected with ${PCL_FLANN_REQUIRED_TYPE} but found as ${FLANN_LIBRARY_TYPE}")
 endif()
 
+if(UNIX AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 6.0)
+    set (CMAKE_CXX_STANDARD 17)
+endif()
+
 # libusb
 option(WITH_LIBUSB "Build USB RGBD-Camera drivers" TRUE)
 if(WITH_LIBUSB)
@@ -355,10 +359,8 @@ if(WITH_QHULL)
   if(NOT PCL_SHARED_LIBS OR ((WIN32 AND NOT MINGW) AND NOT PCL_BUILD_WITH_QHULL_DYNAMIC_LINKING_WIN32))
     set(QHULL_USE_STATIC ON)
   endif()
-  find_package(Qhull)
-  if(QHULL_FOUND)
-    include_directories(SYSTEM ${QHULL_INCLUDE_DIRS})
-  endif()
+  find_package(Qhull CONFIG REQUIRED)
+  set(HAVE_QHULL ON)
 endif()
 
 # Cuda
@@ -419,6 +421,9 @@ endif()
 
 # Boost (required)
 include("${PCL_SOURCE_DIR}/cmake/pcl_find_boost.cmake")
+if (NOT APPLE AND NOT WIN32 AND CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_definitions(-fext-numeric-literals)
+endif()
 
 ### ---[ Create the config.h file
 set(pcl_config_h_in "${CMAKE_CURRENT_SOURCE_DIR}/pcl_config.h.in")

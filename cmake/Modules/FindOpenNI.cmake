@@ -51,9 +51,9 @@ if(OPENNI_INCLUDE_DIR AND OPENNI_LIBRARY)
   mark_as_advanced(OPENNI_INCLUDE_DIRS)
 
   # Libraries
-  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    find_package(libusb REQUIRED)
-    set(OPENNI_LIBRARIES ${OPENNI_LIBRARY} libusb::libusb)
+  if(NOT WIN32)
+    find_package(libusb CONFIG REQUIRED)
+    set(OPENNI_LIBRARIES ${OPENNI_LIBRARIES} ${LIBUSB_LIBRARIES})
   else()
     set(OPENNI_LIBRARIES ${OPENNI_LIBRARY})
   endif()

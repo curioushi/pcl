@@ -12,7 +12,7 @@ if(NOT build)
   return()
 endif()
 
-if(QHULL_FOUND)
+if(Qhull_FOUND)
   set(HULL_INCLUDES
     "include/pcl/${SUBSYS_NAME}/concave_hull.h"
     "include/pcl/${SUBSYS_NAME}/convex_hull.h"
@@ -186,7 +186,12 @@ if(VTK_FOUND)
   endif()
 endif()
 
-if(QHULL_FOUND)
+if(Qhull_FOUND)
+  if(QHULL_USE_STATIC)
+    set(QHULL_LIBRARIES Qhull::qhullcpp Qhull::qhullstatic Qhull::qhullstatic_r)
+  else()
+    set(QHULL_LIBRARIES Qhull::qhull_r Qhull::qhullcpp)
+  endif()
   target_link_libraries("${LIB_NAME}" ${QHULL_LIBRARIES})
 endif()
 
