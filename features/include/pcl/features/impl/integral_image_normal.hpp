@@ -141,7 +141,6 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initCovarianceMatrixMet
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initAverage3DGradientMethod ()
 {
-  std::cout << "initAverage3DGradientMethod" << std::endl;
   std::size_t data_size = (input_->size () << 2);
   diff_x_ = new float[data_size];
   diff_y_ = new float[data_size];
@@ -209,6 +208,7 @@ template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computePointNormal (
     const int pos_x, const int pos_y, const unsigned point_index, PointOutT &normal)
 {
+  std::cout << "computePointNormal" << std::endl;
   float bad_point = std::numeric_limits<float>::quiet_NaN ();
 
   if (normal_estimation_method_ == COVARIANCE_MATRIX)
