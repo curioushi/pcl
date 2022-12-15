@@ -39,11 +39,14 @@
 #define PCL_FILTERS_IMPL_FILTER_INDICES_H_
 
 #include <pcl/filters/filter_indices.h>
+#include <iostream>
 
 template <typename PointT> void
 pcl::removeNaNFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
                               Indices &index)
 {
+    std::cout << "removeNaNFromPointCloud" << std::endl;
+    std::cerr << "removeNaNFromPointCloud" << std::endl;
   // Reserve enough space for the indices
   index.resize (cloud_in.size ());
 
@@ -76,6 +79,8 @@ pcl::removeNaNFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
 template<typename PointT> void
 pcl::FilterIndices<PointT>::applyFilter (PointCloud &output)
 {
+    std::cout << "applyFilter" << std::endl;
+    std::cerr << "applyFilter" << std::endl;
   Indices indices;
   if (keep_organized_)
   {

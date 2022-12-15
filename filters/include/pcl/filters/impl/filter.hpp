@@ -40,6 +40,7 @@
 #include <pcl/pcl_exports.h> // for PCL_EXPORTS
 #include <pcl/common/point_tests.h> // for pcl::isFinite
 #include <pcl/filters/filter.h>
+#include <iostream>
 
 //////////////////////////////////////////////////////////////////////////
 template <typename PointT> void
@@ -47,6 +48,8 @@ pcl::removeNaNFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
                               pcl::PointCloud<PointT> &cloud_out,
                               Indices &index)
 {
+    std::cout << "removeNaNFromPointCloud" << std::endl;
+    std::cerr << "removeNaNFromPointCloud" << std::endl;
   // If the clouds are not the same, prepare the output
   if (&cloud_in != &cloud_out)
   {
@@ -100,6 +103,8 @@ pcl::removeNaNNormalsFromPointCloud (const pcl::PointCloud<PointT> &cloud_in,
                                      pcl::PointCloud<PointT> &cloud_out,
                                      Indices &index)
 {
+    std::cout << "removeNaNNormalsFromPointCloud" << std::endl;
+    std::cerr << "removeNaNNormalsFromPointCloud" << std::endl;
   // If the clouds are not the same, prepare the output
   if (&cloud_in != &cloud_out)
   {
