@@ -40,6 +40,7 @@
 #define PCL_FEATURES_INTEGRALIMAGE_BASED_IMPL_NORMAL_ESTIMATOR_H_
 
 #include <pcl/features/integral_image_normal.h>
+#include <iostream>
 
 //////////////////////////////////////////////////////////////////////////////////////////
 template <typename PointInT, typename PointOutT>
@@ -140,6 +141,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initCovarianceMatrixMet
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initAverage3DGradientMethod ()
 {
+  std::cout << "initAverage3DGradientMethod" << std::endl;
   std::size_t data_size = (input_->size () << 2);
   diff_x_ = new float[data_size];
   diff_y_ = new float[data_size];
