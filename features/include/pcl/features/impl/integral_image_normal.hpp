@@ -46,6 +46,7 @@
 template <typename PointInT, typename PointOutT>
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::~IntegralImageNormalEstimation ()
 {
+  std::cout << "~IntegralImageNormalEstimation" << std::endl;
   delete[] diff_x_;
   delete[] diff_y_;
   delete[] depth_data_;
@@ -56,6 +57,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::~IntegralImageNormalEst
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initData ()
 {
+  std::cout << "initData" << std::endl;
   if (border_policy_ != BORDER_POLICY_IGNORE &&
       border_policy_ != BORDER_POLICY_MIRROR)
     PCL_THROW_EXCEPTION (InitFailedException,
@@ -93,6 +95,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initData ()
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::setRectSize (const int width, const int height)
 {
+  std::cout << "setRectSize" << std::endl;
   rect_width_      = width;
   rect_width_2_    = width/2;
   rect_width_4_    = width/4;
@@ -105,6 +108,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::setRectSize (const int 
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initSimple3DGradientMethod ()
 {
+  std::cout << "initSimple3DGradientMethod" << std::endl;
   // number of DataType entries per element (equal or bigger than dimensions)
   int element_stride = sizeof (PointInT) / sizeof (float);
   // number of DataType entries per row (equal or bigger than element_stride number of elements per row)
@@ -123,6 +127,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initSimple3DGradientMet
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initCovarianceMatrixMethod ()
 {
+  std::cout << "initCovarianceMatrixMethod" << std::endl;
   // number of DataType entries per element (equal or bigger than dimensions)
   int element_stride = sizeof (PointInT) / sizeof (float);
   // number of DataType entries per row (equal or bigger than element_stride number of elements per row)
@@ -141,6 +146,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initCovarianceMatrixMet
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initAverage3DGradientMethod ()
 {
+  std::cout << "initAverage3DGradientMethod" << std::endl;
   std::size_t data_size = (input_->size () << 2);
   diff_x_ = new float[data_size];
   diff_y_ = new float[data_size];
@@ -190,6 +196,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initAverage3DGradientMe
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initAverageDepthChangeMethod ()
 {
+  std::cout << "initAverageDepthChangeMethod" << std::endl;
   // number of DataType entries per element (equal or bigger than dimensions)
   int element_stride = sizeof (PointInT) / sizeof (float);
   // number of DataType entries per row (equal or bigger than element_stride number of elements per row)
@@ -396,6 +403,7 @@ sumArea (int start_x, int start_y, int end_x, int end_y, const int width, const 
   const std::function<T(unsigned, unsigned, unsigned, unsigned)> &f, 
   T & result)
 {
+  std::cout << "sumArea" << std::endl;
   if (start_x < 0)
   {
     if (start_y < 0)
@@ -464,6 +472,7 @@ template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computePointNormalMirror (
     const int pos_x, const int pos_y, const unsigned point_index, PointOutT &normal)
 {
+  std::cout << "computePointNormalMirror" << std::endl;
   float bad_point = std::numeric_limits<float>::quiet_NaN ();
 
   const int width = input_->width;
@@ -732,6 +741,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computePointNormalMirro
 template <typename PointInT, typename PointOutT> void
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computeFeature (PointCloudOut &output)
 {
+  std::cout << "computeFeature" << std::endl;
   output.sensor_origin_ = input_->sensor_origin_;
   output.sensor_orientation_ = input_->sensor_orientation_;
   
@@ -841,6 +851,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computeFeatureFull (con
                                                                              const float &bad_point,
                                                                              PointCloudOut &output)
 {
+  std::cout << "computeFeatureFull" << std::endl;
   unsigned index = 0;
 
   if (border_policy_ == BORDER_POLICY_IGNORE)
@@ -1028,6 +1039,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computeFeaturePart (con
                                                                              const float &bad_point,
                                                                              PointCloudOut &output)
 {
+  std::cout << "computeFeaturePart" << std::endl;
   if (border_policy_ == BORDER_POLICY_IGNORE)
   {
     output.is_dense = false;
@@ -1193,6 +1205,7 @@ pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::computeFeaturePart (con
 template <typename PointInT, typename PointOutT> bool
 pcl::IntegralImageNormalEstimation<PointInT, PointOutT>::initCompute ()
 {
+  std::cout << "initCompute" << std::endl;
   if (!input_->isOrganized ())
   {
     PCL_ERROR ("[pcl::IntegralImageNormalEstimation::initCompute] Input dataset is not organized (height = 1).\n");
